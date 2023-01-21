@@ -1,0 +1,84 @@
+Q- What are various ways to add Image in our app?
+A- 1-  Images hosted Externally - by adding the URL to the src attribute of the img tag:
+const App = () => {
+   return (
+      <div>
+         <img src="https://reactjs.org/logo-og.png" alt="React Logo" />
+      </div>
+   );
+};
+2- Import Images With React Using the import Statement -(best Way)
+the import statement is the most commonly used method for importing locally stored images in React. The images are treated as default exports, and when we import them, we do so in the same way that we import components. This is done by specifying the relative path from the file to the image we are importing:
+import Logo from './images/react-logo.png';
+
+const App = () => {
+   return (
+      <div>
+         <img src={Logo} alt="React Logo" />
+      </div>
+   );
+};
+3- Import Images With React using the require() Function
+The require() function is a Node.js function that is used to include external modules from files other than the current file. It works in the same way as the import statement and allows us to include images:
+
+let Logo = require('./images/react-logo.png');
+
+const App = () => {
+   return (
+      <div>
+         <img src={Logo} alt="React Logo" />
+      </div>
+   );
+};
+or
+const App = () => {
+   return (
+      <div>
+         <img src={require('./images/react-logo.png')} alt="React Logo" />
+      </div>
+   );
+};
+4- Images inside Public Folder
+If you place images inside the public folder, Those will not be processed by the webpack. This means that When you build your app for production then the public folder will be copied & pasted into the build folder as it is.
+
+You will have to use a special variable PUBLIC_URL to reference images of the public folder.
+If inside public folder you create a folder names images and put an image named mypic.jpg into it, then you can reference its path like
+
+File Name – index.html
+
+<img src="%PUBLIC_URL%/images/mypic.jpg" />
+
+
+Q- What would happen if you do console.log(useState())
+A- It will give Refrence ReferenceError
+ Uncaught ReferenceError: useState is not defined
+    at <anonymous>:1:1
+
+Q- How will useEffect Behave if we don't add any dependency array?
+A- useEffect is now not dependent on any thing, so it will call "after each render of the component", whenever component will render useEffect will be called, which is not good for our app performance
+
+Q- What is SPA?
+A- A Single Page Application is a web application or website that interacts with the web browser by dynamically rewriting the current web page with new data from the web server, instead of the default method of the browser loading entire new pages.
+This means that the URL of your website will not change completely (page will not reload), instead it will keep getting content and rewriting the DOM with it instead of loading a new page.
+
+When building your react-app, you can see that there is only one App.js from where your entire web-app is loaded in fragments and components. This behaviour of rendering components and pages on a single page and changing the DOM( is a single page behaviour and hence the name), instead of loading a new page with new content, this makes it feel like a single application.
+Q_ what is difffrence between client-side-routing and server-side-routing?
+A- with server-side routing you download an entire new webpage whenever you click on a link,
+with client-side routing the webapp downloads, processes and displays new data for you.
+
+Imagine the user clicking on a simple link: <a href="/hello">Hello!</a>
+
+-On a webapp that uses server side routing:
+
+The browser detects that the user has clicked on an anchor element.
+It makes an HTTP GET request to the URL found in the href tag
+The server processes the request, and sends a new document (usually HTML) as a response.
+The browser discards the old webpage altogether, and displays the newly downloaded one.
+
+-If the webapp uses client side routing:
+
+The browser detects that the user has clicked on an anchor element, just like before.
+A client side code (usually the routing library) catches this event, detects that the URL is not an external link, and then prevents the browser from making the HTTP GET request.
+The routing library then manually changes the URL displayed in the browser (using the HTML5 history API, or maybe URL hashbangs on older browsers).
+The routing library then changes the state of the client app. For example, it can change the root React/Angular/etc component according to the route rules.
+The app (particularly the MVC library, like React) then processes state changes. It renders the new components, and if necessary, it requests new data from the server. But this time the response isn't necessarily an entire webpage, it may also be "raw" data, in which case the client-side code turns it into HTML element.
